@@ -1,0 +1,6 @@
+python-chess==1.999
+pandas>=2.0.0
+pyarrow>=15.0.0
+datasets>=2.20.0
+
+
