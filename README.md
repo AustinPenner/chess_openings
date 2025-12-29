@@ -9,27 +9,36 @@ pip install -r requirements.txt
 
 ### Download dataset
 
-```bash
-python3 main.py download
+To download the Lichess openings dataset, open a Python shell and run:
+
+```python
+from main import download_data
+download_data()
 ```
 
 Outputs:
 - `data/chess_openings.parquet`
 - `data/chess_openings.csv`
 
-### Convert PGN/ UCI to FENs
+### Build lookup table
 
-Examples:
-
-```bash
-python3 main.py fen --pgn "1. e4 e5 2. Nf3 Nc6 3. Bb5"
-```
+Once the dataset is downloaded, run:
 
 ```bash
-python3 main.py fen --uci "e2e4 e7e5 g1f3 b8c6 f1b5"
+python3 main.py
 ```
 
-Each prints one FEN per move.
+This will:
+1. Load the source dataset from `data/`
+2. Explode each opening into one row per halfmove
+3. Compute EPD (board position) for each move
+4. Deduplicate by EPD, keeping the shortest path to each position
+5. Output the lookup table in multiple formats
 
+Outputs:
+- `data/chess_openings_lookup.parquet`
+- `data/chess_openings_lookup.csv`
+- `data/chess_openings_lookup.json`
 
+The JSON is also printed to stdout.
 
